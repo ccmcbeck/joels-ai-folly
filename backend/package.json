@@ -1,0 +1,28 @@
+{
+  "name": "joels-ai-folly-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "cdk": "cdk",
+    "synth": "cdk synth",
+    "deploy": "cdk deploy",
+    "diff": "cdk diff"
+  },
+  "dependencies": {
+    "@aws-sdk/client-apigatewaymanagementapi": "^3.600.0",
+    "@aws-sdk/client-dynamodb": "^3.600.0",
+    "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/client-transcribe": "^3.997.0",
+    "@aws-sdk/lib-dynamodb": "^3.600.0",
+    "aws-cdk-lib": "^2.240.0",
+    "constructs": "^10.5.1",
+    "esbuild": "^0.21.5",
+    "livekit-server-sdk": "^2.15.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.160",
+    "aws-cdk": "^2.1107.0",
+    "typescript": "~5.3.0"
+  }
+}
