@@ -140,3 +140,42 @@ Ship Milestones 1-3 first (route + location tracking) as the MVP. This gives imm
 | **Total** | **~$75-150/mo** |
 
 Scales linearly. At 1,000 active users, expect ~$500-800/mo.
+
+## Phase 2: Firebase Backend
+
+Phase 2 builds the real-time backend to replace mock data. This is a prerequisite for multi-device testing and all server-side test coverage.
+
+### Firebase Services
+
+1. **Firebase Auth** - Phone number or email sign-up/login
+2. **Firebase Realtime Database** - Location broadcasts (GPS position every 3-5s per participant)
+3. **Cloud Firestore** - Structured data (events, users, groups, routes)
+4. **Cloud Functions** - Server-side logic:
+   - Off-route detection (compare participant position to route, push alerts)
+   - Relative position computation (distance/time along route)
+   - Event lifecycle (create, join, start, end)
+   - Sub-group management
+5. **Firebase Cloud Messaging** - Push notifications for off-route alerts and group messages
+
+### Data Model
+
+- `events/{eventId}` - Event metadata (name, route, status, organizer)
+- `events/{eventId}/participants/{uid}` - Participant profile and settings
+- `locations/{eventId}/{uid}` - Real-time location (RTDB, not Firestore - optimized for frequent writes)
+- `users/{uid}` - User profile, event history
+
+### Server-Side Test Coverage
+
+With the Firebase backend in place, server-side tests can cover:
+- Cloud Functions unit tests (off-route detection, relative positioning, event lifecycle)
+- Security rules tests (Firestore and RTDB access control)
+- Integration tests (event creation flow, participant join, location broadcast)
+
+### Deliverables
+
+- Firebase project setup and configuration
+- Auth flow integrated into the app
+- Real-time location sharing between devices
+- Cloud Functions for off-route detection and alerts
+- Server-side test suite
+- Client updated to use Firebase instead of mock data

@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "Joel's AI Folly",
+    "slug": "joels-ai-folly",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "joels-ai-folly",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.joelsaifolly.app",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "We need your location to show your position on the route and share it with your group.",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "Background location is needed to track your position during group rides.",
+        "NSMicrophoneUsageDescription": "Microphone access is needed for push-to-talk communication with your group."
+      }
+    },
+    "android": {
+      "package": "com.joelsaifolly.app",
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_BACKGROUND_LOCATION",
+        "RECORD_AUDIO"
+      ]
+    },
+    "plugins": [
+      "expo-router",
+      "expo-location",
+      [
+        "expo-av",
+        {
+          "microphonePermission": "Allow push-to-talk communication with your group."
+        }
+      ]
+    ]
+  }
+}
