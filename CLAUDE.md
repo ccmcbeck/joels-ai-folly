@@ -82,6 +82,10 @@ test/                   # Jest tests
 
 See [.claude/knowledge/RUNNING.md](.claude/knowledge/RUNNING.md) for full setup and run instructions.
 
+## Using Claude Code
+
+See [.claude/knowledge/CLAUDE_CODE.md](.claude/knowledge/CLAUDE_CODE.md) for setup, pricing, and tips.
+
 ### Mock Mode (no backend required)
 
 When `EXPO_PUBLIC_API_URL` is not set, the app runs in mock mode:
