@@ -32,7 +32,8 @@
         {
           "microphonePermission": "Allow push-to-talk communication with your group."
         }
-      ]
+      ],
+      "expo-asset"
     ]
   }
 }
