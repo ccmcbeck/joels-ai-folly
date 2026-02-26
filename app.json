@@ -28,7 +28,7 @@
       "expo-router",
       "expo-location",
       [
-        "expo-av",
+        "expo-audio",
         {
           "microphonePermission": "Allow push-to-talk communication with your group."
         }

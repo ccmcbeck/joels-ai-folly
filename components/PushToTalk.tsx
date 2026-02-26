@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Haptics from 'expo-haptics';
-import { Audio } from 'expo-av';
+import { useAudioRecorder, AudioModule, RecordingPresets } from 'expo-audio';
 import type { Participant, PTTTarget } from '@/lib/types';
 import { useEvent } from '@/lib/contexts/EventContext';
 import { livekitService } from '@/lib/services/livekit';
@@ -29,23 +29,22 @@ export default function PushToTalk({ participants }: Props) {
   const [recordingDuration, setRecordingDuration] = useState(0);
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const timerRef = useRef<ReturnType<typeof setInterval>>();
-  const recordingRef = useRef<Audio.Recording | null>(null);
+  const audioRecorder = useAudioRecorder(RecordingPresets.HIGH_QUALITY);
 
   const startRecording = useCallback(async () => {
     setIsRecording(true);
     setRecordingDuration(0);
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
 
-    // Start audio recording
+    // Request permission and start audio recording
     try {
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: true,
-        playsInSilentModeIOS: true,
-      });
-      const { recording } = await Audio.Recording.createAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY,
-      );
-      recordingRef.current = recording;
+      const { granted } = await AudioModule.requestRecordingPermissionsAsync();
+      if (!granted) {
+        console.warn('[PTT] Audio recording permission denied');
+        return;
+      }
+      await audioRecorder.prepareToRecordAsync();
+      audioRecorder.record();
     } catch (err) {
       console.warn('[PTT] Failed to start recording:', err);
     }
@@ -83,34 +82,23 @@ export default function PushToTalk({ participants }: Props) {
     }
 
     // Stop audio recording
-    if (recordingRef.current) {
-      try {
-        await recordingRef.current.stopAndUnloadAsync();
-        const uri = recordingRef.current.getURI();
+    try {
+      await audioRecorder.stop();
+      const uri = audioRecorder.uri;
+      const targetLabel = getTargetLabel(target);
+      console.log(`[PTT] Recorded ${recordingDuration}s to ${targetLabel}, uri: ${uri}`);
 
-        // In production, this audio would be streamed via LiveKit.
-        // For now, log the recording details.
-        const targetLabel = getTargetLabel(target);
-        console.log(`[PTT] Recorded ${recordingDuration}s to ${targetLabel}, uri: ${uri}`);
-
-        // If backend is available, request a LiveKit token for the channel
-        if (!config.useMockData && activeEvent) {
-          try {
-            const tokenData = await livekitService.getToken(activeEvent.id, target);
-            console.log(`[PTT] Got LiveKit token for room: ${tokenData.roomName}`);
-          } catch (err) {
-            console.warn('[PTT] Failed to get LiveKit token:', err);
-          }
+      if (!config.useMockData && activeEvent) {
+        try {
+          const tokenData = await livekitService.getToken(activeEvent.id, target);
+          console.log(`[PTT] Got LiveKit token for room: ${tokenData.roomName}`);
+        } catch (err) {
+          console.warn('[PTT] Failed to get LiveKit token:', err);
         }
-      } catch (err) {
-        console.warn('[PTT] Failed to stop recording:', err);
       }
-      recordingRef.current = null;
+    } catch (err) {
+      console.warn('[PTT] Failed to stop recording:', err);
     }
-
-    await Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-    });
   }, [target, recordingDuration, pulseAnim, activeEvent]);
 
   const targetLabel = getTargetLabel(target);
