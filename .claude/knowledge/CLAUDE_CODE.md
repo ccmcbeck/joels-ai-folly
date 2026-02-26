@@ -12,12 +12,13 @@ You need a Claude.ai account to use Claude Code:
 
 | Plan | Cost | Good for |
 |------|------|----------|
+| **Free** | $0 | Try it out — rate-limited but no credit card required |
 | **Pro** | $20/month | Occasional use, getting started |
 | **Max** | $100/month | Daily active development |
 | **API key** | Pay per token | Power users who want control over spend |
 | **AWS Bedrock** | Pay per token via AWS | Best if you already have an AWS account with Bedrock access |
 
-Sign up at [claude.ai](https://claude.ai) or [console.anthropic.com](https://console.anthropic.com).
+Sign up at [claude.ai](https://claude.ai) — no credit card needed for the free tier.
 
 ### AWS Bedrock Alternative
 
