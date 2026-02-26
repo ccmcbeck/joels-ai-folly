@@ -65,6 +65,15 @@ Then press:
 
 If the QR code shows a dev client error, press `s` to switch to Expo Go mode.
 
+### Fast Refresh (hot reload)
+
+Expo uses **Fast Refresh** — most code changes (components, styles, logic) automatically
+reload on the device without re-scanning the QR code. Just save the file and the app updates
+in place.
+
+**Exception**: Changes to `app.json` or native config require restarting the dev server and
+re-scanning the QR code.
+
 If the device can't connect over LAN, use tunnel mode:
 
 ```bash
