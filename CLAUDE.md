@@ -80,57 +80,15 @@ test/                   # Jest tests
 
 ## Running
 
-### Prerequisites
-
-- Node.js 18+ (`node --version`)
-- npm (`npm --version`)
-- Install dependencies: `npm install`
+See [.claude/knowledge/RUNNING.md](.claude/knowledge/RUNNING.md) for full setup and run instructions.
 
 ### Mock Mode (no backend required)
 
 When `EXPO_PUBLIC_API_URL` is not set, the app runs in mock mode:
-- Sign in with any email/password (stored locally)
+- Sign in with any email/password
 - Events created locally with mock data
 - Simulated participants move along the Mission Bay route
 - PTT records audio locally (no LiveKit connection)
-
-### On a physical device (recommended for GPS)
-
-1. Install **Expo Go** from the App Store (iOS) or Google Play (Android)
-2. Run `npx expo start`
-3. Scan the QR code with your phone camera (iOS) or Expo Go app (Android)
-4. Sign in or create an account
-5. Create an event or join one with an invite code
-6. Grant location permission when prompted for live GPS tracking
-
-### On iOS Simulator
-
-1. Install Xcode from the Mac App Store
-2. Run `npx expo start --ios`
-3. Simulator uses a fixed location — the app will use simulated route movement
-
-### Deploying the Backend
-
-1. `cd backend && npm install`
-2. Set `LIVEKIT_API_KEY` and `LIVEKIT_API_SECRET` environment variables
-3. `npx cdk deploy`
-4. Copy the stack outputs into `.env`:
-   ```
-   EXPO_PUBLIC_COGNITO_USER_POOL_ID=...
-   EXPO_PUBLIC_COGNITO_CLIENT_ID=...
-   EXPO_PUBLIC_API_URL=...
-   EXPO_PUBLIC_WS_URL=...
-   EXPO_PUBLIC_LIVEKIT_URL=...
-   ```
-
-### What you'll see
-
-- **Sign In / Sign Up**: Auth screens with email/password
-- **Event Home**: Create a new ride event or join with an invite code
-- **Map tab**: Route line, your position, participants, navigation HUD, push-to-talk button
-- **Group tab**: All riders with relative positions, sub-group management, direct PTT buttons
-- **Voice tab**: Archived voice messages with transcripts
-- **Settings tab**: Profile, event info, route import (GPX), alert preferences, sign out
 
 ## Current State
 
