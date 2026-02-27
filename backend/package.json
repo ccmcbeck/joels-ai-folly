@@ -6,13 +6,20 @@
     "build": "tsc",
     "cdk": "cdk",
     "synth": "cdk synth",
-    "deploy": "cdk deploy",
-    "diff": "cdk diff"
+    "synth:dev": "cdk synth -c stage=dev",
+    "synth:prod": "cdk synth -c stage=prod",
+    "deploy:dev": "cdk deploy -c stage=dev",
+    "deploy:prod": "cdk deploy -c stage=prod --require-approval broadening",
+    "diff:dev": "cdk diff -c stage=dev",
+    "diff:prod": "cdk diff -c stage=prod",
+    "destroy:dev": "cdk destroy -c stage=dev",
+    "test": "jest"
   },
   "dependencies": {
     "@aws-sdk/client-apigatewaymanagementapi": "^3.600.0",
     "@aws-sdk/client-dynamodb": "^3.600.0",
     "@aws-sdk/client-s3": "^3.600.0",
+    "@aws-sdk/client-ssm": "^3.600.0",
     "@aws-sdk/client-transcribe": "^3.997.0",
     "@aws-sdk/lib-dynamodb": "^3.600.0",
     "aws-cdk-lib": "^2.240.0",
@@ -22,7 +29,10 @@
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.160",
+    "@types/jest": "^29.5.12",
     "aws-cdk": "^2.1107.0",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "~5.3.0"
   }
 }

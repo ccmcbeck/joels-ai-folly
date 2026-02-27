@@ -1,6 +1,33 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { SSMClient, GetParameterCommand } from '@aws-sdk/client-ssm';
 import { AccessToken } from 'livekit-server-sdk';
 import { ok, badRequest, getUserId } from '../shared/responses';
+
+const ssm = new SSMClient({});
+const ssmPrefix = process.env.SSM_PREFIX || '/jaf-dev';
+
+// Cache SSM values for the lifetime of the Lambda container
+let cachedApiKey: string | undefined;
+let cachedApiSecret: string | undefined;
+let cachedUrl: string | undefined;
+
+async function getParam(name: string, decrypt: boolean): Promise<string> {
+  const result = await ssm.send(
+    new GetParameterCommand({ Name: `${ssmPrefix}${name}`, WithDecryption: decrypt }),
+  );
+  return result.Parameter?.Value || '';
+}
+
+async function getLiveKitConfig() {
+  if (!cachedApiKey || !cachedApiSecret || !cachedUrl) {
+    [cachedApiKey, cachedApiSecret, cachedUrl] = await Promise.all([
+      getParam('/livekit/api-key', false),
+      getParam('/livekit/api-secret', true),
+      getParam('/livekit/url', false),
+    ]);
+  }
+  return { apiKey: cachedApiKey, apiSecret: cachedApiSecret, url: cachedUrl };
+}
 
 export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> {
   const uid = getUserId(event);
@@ -17,8 +44,7 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
     return badRequest('eventId and channelType are required');
   }
 
-  const apiKey = process.env.LIVEKIT_API_KEY;
-  const apiSecret = process.env.LIVEKIT_API_SECRET;
+  const { apiKey, apiSecret, url } = await getLiveKitConfig();
   if (!apiKey || !apiSecret) {
     return badRequest('LiveKit not configured');
   }
@@ -57,6 +83,6 @@ export async function handler(event: APIGatewayProxyEvent): Promise<APIGatewayPr
   return ok({
     token: await token.toJwt(),
     roomName,
-    url: process.env.LIVEKIT_URL || '',
+    url,
   });
 }

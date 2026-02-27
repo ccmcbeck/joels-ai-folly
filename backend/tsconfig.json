@@ -17,5 +17,5 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true
   },
-  "include": ["bin/**/*.ts", "lib/**/*.ts", "functions/**/*.ts"]
+  "include": ["bin/**/*.ts", "lib/**/*.ts", "functions/**/*.ts", "test/**/*.ts"]
 }
