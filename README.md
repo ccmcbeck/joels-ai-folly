@@ -38,27 +38,51 @@ Target scale: 150+ participants per event.
 
 ## Getting Started
 
-### Prerequisites
-
-- Mac with [Homebrew](https://brew.sh)
-- Node.js 20.19.4+ (via nvm)
-- [Expo Go](https://expo.dev/go) on your iOS or Android device
-
-### Install dependencies
+### 1. Clone the repo
 
 ```bash
-# Install Homebrew packages (includes nvm, node, etc.)
+git clone https://github.com/ccmcbeck/joels-ai-folly.git
+cd joels-ai-folly
+```
+
+### 2. Install Homebrew packages
+
+The script installs Homebrew if missing, then installs all required packages including nvm and node:
+
+```bash
 bash scripts/install-mac-brew.sh
+```
 
-# Install Node via nvm
-nvm install   # reads .nvmrc
+After it completes, add Homebrew and nvm to your shell by adding this to `~/.zshrc`:
+
+```zsh
+eval "$(/opt/homebrew/bin/brew shellenv)"
+export NVM_DIR="$HOME/.nvm"
+[ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"
+```
+
+Then reload your shell:
+
+```bash
+source ~/.zshrc
+```
+
+See [Mac setup & shell config](.claude/knowledge/DEVELOPING.md) for full shell setup details.
+
+### 3. Install Node and app dependencies
+
+```bash
+nvm install   # installs Node version from .nvmrc (20.19.4)
 nvm use
-
-# Install app dependencies
 npm install
 ```
 
-### Run the app
+### 4. Install Expo Go on your phone
+
+- iOS: [App Store](https://apps.apple.com/app/expo-go/id982107779)
+- Android: [Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent)
+
+### 5. Run the app
 
 ```bash
 npm start
@@ -66,9 +90,11 @@ npm start
 
 Scan the QR code with your phone's Camera app (iOS) or Expo Go (Android).
 
+> **If the QR code doesn't work**: Press `s` in the terminal to switch to Expo Go mode, then scan again.
+
 The app runs in **mock mode** by default — no backend required. Sign in with any email/password.
 
-### Full setup guides
+## Full Setup Guides
 
 - [Mac setup & shell config](.claude/knowledge/DEVELOPING.md)
 - [Running the app](.claude/knowledge/RUNNING.md)
