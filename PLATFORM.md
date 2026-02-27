@@ -161,6 +161,24 @@ aws sns subscribe \
   --notification-endpoint your@email.com
 ```
 
+## IAM Users
+
+Managed manually via IAM API (not in CDK stack).
+
+### Policy: `jaf-developer`
+
+Scoped to JAF resources only: DynamoDB (`jaf-*` tables), S3 (`jaf-*` buckets), Lambda (`jaf-*` functions), CloudWatch logs/alarms, Cognito user pools, API Gateway (read/invoke), SSM params (read), CloudFormation (read), SNS (subscribe). Users can also manage their own password and access keys.
+
+### Users
+
+| Username | Name | Console | CLI | Created |
+|----------|------|---------|-----|---------|
+| `joel.johnstone` | Joel Johnstone | Yes | Yes | 2026-02-27 |
+| `jon.berke` | Jon Berke | Yes | Yes | 2026-02-27 |
+
+- Console URL: `https://690196337839.signin.aws.amazon.com/console`
+- Both users were created with a temporary password and must reset on first login
+
 ## Cost Estimate (MVP)
 
 At 5-10 users with 2-3 rides/month: **~$0.50/month** for both stacks combined. Nearly everything falls within AWS Free Tier. Post-free-tier: ~$0.70/month.
