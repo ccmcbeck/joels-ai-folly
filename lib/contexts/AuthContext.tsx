@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { authService } from '../services/auth';
+import { fetchUserAttributes } from 'aws-amplify/auth';
 import { config } from '../config';
 import type { User } from '../types';
 
@@ -42,10 +43,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       } else {
         const cognitoUser = await authService.getCurrentUser();
         if (cognitoUser) {
+          const attrs = await fetchUserAttributes();
           setUser({
             uid: cognitoUser.userId,
-            email: cognitoUser.signInDetails?.loginId ?? '',
-            displayName: cognitoUser.username,
+            email: attrs.email ?? cognitoUser.signInDetails?.loginId ?? '',
+            displayName: attrs.preferred_username ?? attrs.email ?? cognitoUser.username,
           });
         }
       }
