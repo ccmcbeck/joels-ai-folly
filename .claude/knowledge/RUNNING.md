@@ -85,5 +85,19 @@ npx expo start --tunnel
 
 ## Backend
 
-The backend is a separate CDK app in `backend/`. See `backend/` for deployment instructions.
+The backend is a separate CDK app in `backend/`. See [PLATFORM.md](PLATFORM.md) for deployment
+instructions, AWS account details, and stack outputs.
+
 The app runs in mock mode (no backend required) when `EXPO_PUBLIC_API_URL` is not set.
+When `.env.local` exists with the stack outputs, the app connects to the real AWS backend.
+
+## Expo Go Limitations
+
+**Amplify SRP auth does not work in Expo Go.** The `@aws-amplify/react-native` package requires
+native module linking (`pod install` + native rebuild), which Expo Go doesn't support. The app
+uses `USER_PASSWORD_AUTH` flow instead (configured in `lib/services/auth.ts` and on the Cognito
+client). This is safe over HTTPS for development.
+
+When building for production with `eas build` or `expo run:ios`, native modules are linked and
+the auth flow can be switched back to SRP (`USER_SRP_AUTH`) by removing the `authFlowType`
+option from `signIn()` and importing `@aws-amplify/react-native` in `app/_layout.tsx`.
