@@ -86,6 +86,10 @@ See [.claude/knowledge/RUNNING.md](.claude/knowledge/RUNNING.md) for full setup 
 
 See [.claude/knowledge/DEVELOPING.md](.claude/knowledge/DEVELOPING.md) for Mac setup, Homebrew packages, and shell configuration.
 
+## Platform Infrastructure
+
+See [.claude/knowledge/PLATFORM.md](.claude/knowledge/PLATFORM.md) for AWS account, CDK deployment, IAM users, SSM parameters, and monitoring.
+
 ## Using Claude Code
 
 See [.claude/knowledge/CLAUDE_CODE.md](.claude/knowledge/CLAUDE_CODE.md) for setup, pricing, and tips.
