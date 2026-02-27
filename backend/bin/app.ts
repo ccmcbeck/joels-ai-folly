@@ -10,7 +10,7 @@ const config = getConfig(stage);
 
 new JoelsAiFollyStack(app, `JoelsAiFolly-${config.stage}`, {
   env: {
-    region: process.env.CDK_DEFAULT_REGION || 'us-west-2',
+    region: process.env.CDK_DEFAULT_REGION || 'us-east-1',
     account: process.env.CDK_DEFAULT_ACCOUNT,
   },
   config,

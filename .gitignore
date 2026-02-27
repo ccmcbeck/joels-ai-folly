@@ -10,4 +10,5 @@ cdk.out/
 *.orig.*
 web-build/
 .env
+.env.local
 .claude/settings.local.json
