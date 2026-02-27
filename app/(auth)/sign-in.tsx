@@ -11,6 +11,7 @@ import {
   Alert,
 } from 'react-native';
 import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useAuth } from '@/lib/contexts/AuthContext';
 
 export default function SignInScreen() {
@@ -19,6 +20,7 @@ export default function SignInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSignIn() {
     if (!email || !password) {
@@ -29,7 +31,8 @@ export default function SignInScreen() {
     try {
       await signIn(email, password);
     } catch (err: any) {
-      Alert.alert('Sign In Failed', err.message || 'Unknown error');
+      console.error('Sign-in error:', JSON.stringify(err, null, 2));
+      Alert.alert('Sign In Failed', err?.message || String(err) || 'Unknown error');
     } finally {
       setLoading(false);
     }
@@ -56,15 +59,27 @@ export default function SignInScreen() {
             keyboardType="email-address"
             textContentType="emailAddress"
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Password"
-            placeholderTextColor="#666"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            textContentType="password"
-          />
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={styles.passwordInput}
+              placeholder="Password"
+              placeholderTextColor="#666"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry={!showPassword}
+              textContentType="password"
+            />
+            <TouchableOpacity
+              style={styles.eyeButton}
+              onPress={() => setShowPassword(!showPassword)}
+            >
+              <Ionicons
+                name={showPassword ? 'eye-off' : 'eye'}
+                size={22}
+                color="#666"
+              />
+            </TouchableOpacity>
+          </View>
 
           <TouchableOpacity
             style={[styles.button, loading && styles.buttonDisabled]}
@@ -133,6 +148,24 @@ const styles = StyleSheet.create({
     marginBottom: 12,
     borderWidth: 1,
     borderColor: '#2a2a4e',
+  },
+  passwordContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#1a1a2e',
+    borderRadius: 12,
+    marginBottom: 12,
+    borderWidth: 1,
+    borderColor: '#2a2a4e',
+  },
+  passwordInput: {
+    flex: 1,
+    color: '#fff',
+    padding: 16,
+    fontSize: 16,
+  },
+  eyeButton: {
+    paddingHorizontal: 14,
   },
   button: {
     backgroundColor: '#4ECDC4',
