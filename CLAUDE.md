@@ -14,11 +14,11 @@ Target scale: 150+ participants per event, no theoretical limit.
 
 ## Tech Stack
 
-- **Framework**: React Native with Expo (SDK 52) + TypeScript
+- **Framework**: React Native with Expo (SDK 54) + TypeScript
 - **Navigation**: Expo Router (file-based routing)
 - **Maps**: react-native-maps (Apple Maps on iOS, Google Maps on Android)
 - **Location**: expo-location (foreground + background GPS)
-- **Audio**: expo-av (recording) + LiveKit (real-time PTT rooms)
+- **Audio**: expo-audio (recording) + LiveKit (real-time PTT rooms)
 - **Auth**: AWS Cognito via aws-amplify
 - **Backend**: AWS (API Gateway, Lambda, DynamoDB, S3, SNS)
 - **Voice**: LiveKit (audio rooms, server-side egress for transcription)
@@ -81,6 +81,10 @@ test/                   # Jest tests
 ## Running
 
 See [.claude/knowledge/RUNNING.md](.claude/knowledge/RUNNING.md) for full setup and run instructions.
+
+## Developing
+
+See [.claude/knowledge/DEVELOPING.md](.claude/knowledge/DEVELOPING.md) for Mac setup, Homebrew packages, and shell configuration.
 
 ## Using Claude Code
 

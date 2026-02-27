@@ -74,6 +74,9 @@ in place.
 **Exception**: Changes to `app.json` or native config require restarting the dev server and
 re-scanning the QR code.
 
+**iPhone hotspot**: If your laptop is connected to your iPhone's personal hotspot, LAN mode
+works fine — both devices are on the same network and no tunnel is needed.
+
 If the device can't connect over LAN, use tunnel mode:
 
 ```bash
