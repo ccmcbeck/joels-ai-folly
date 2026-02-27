@@ -23,7 +23,15 @@ if (config.aws.cognito.userPoolId) {
 
 export const authService = {
   async signIn(email: string, password: string) {
-    const result = await amplifySignIn({ username: email, password });
+    // Clear any stale auth state (e.g., from a previous sign-up flow)
+    try { await amplifySignOut(); } catch { /* ignore */ }
+    const result = await amplifySignIn({
+      username: email,
+      password,
+      options: {
+        authFlowType: 'USER_PASSWORD_AUTH',
+      },
+    });
     return result;
   },
 
