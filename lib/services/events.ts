@@ -12,21 +12,31 @@ export interface EventDetail extends EventData {
   route?: RoutePoint[];
 }
 
+// Backend returns `eventId`, frontend uses `id` — map the field
+function mapEvent<T extends { eventId?: string; id?: string }>(raw: T): T & { id: string } {
+  const id = raw.id || raw.eventId || '';
+  return { ...raw, id };
+}
+
 export const eventService = {
   async create(input: CreateEventInput): Promise<EventData> {
-    return api.post<EventData>('/events', input);
+    const raw = await api.post<any>('/events', input);
+    return mapEvent(raw);
   },
 
   async get(eventId: string): Promise<EventDetail> {
-    return api.get<EventDetail>(`/events/${eventId}`);
+    const raw = await api.get<any>(`/events/${eventId}`);
+    return mapEvent(raw);
   },
 
   async list(): Promise<EventData[]> {
-    return api.get<EventData[]>('/events');
+    const raw = await api.get<any[]>('/events');
+    return raw.map(mapEvent);
   },
 
   async join(inviteCode: string): Promise<EventData> {
-    return api.post<EventData>('/events/join', { inviteCode });
+    const raw = await api.post<any>('/events/join', { inviteCode });
+    return mapEvent(raw);
   },
 
   async start(eventId: string): Promise<void> {
