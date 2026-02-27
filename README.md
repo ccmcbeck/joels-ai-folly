@@ -4,6 +4,13 @@ A cross-platform mobile app for group event communication, built for group bike 
 
 Built with React Native (Expo) + TypeScript and an AWS serverless backend.
 
+## About the Name
+
+The project is named after **Joel Johnstone**, whose father **[Jack Johnstone](https://www.missionbaytriathlon.com/san-diego-triathlon-history)** co-invented
+the Triathlon in San Diego. Joel, **Chris Beck**, and **Jon Berke** are veteran developers
+on a mission to find out whether three experienced engineers can build an entire production
+app using nothing but Claude Code — for better or worse.
+
 ## Features
 
 - **Push-to-talk** — Hold to talk to everyone, a sub-group, or an individual. Voice is transcribed and archived.
