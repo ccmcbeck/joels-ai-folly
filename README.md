@@ -2,7 +2,9 @@
 
 A cross-platform mobile app for group event communication, built for group bike rides. Combines push-to-talk voice, live location sharing, turn-by-turn route navigation, and off-route alerts — all in one app.
 
-Built with React Native (Expo) + TypeScript and an AWS serverless backend.
+Built with React Native (Expo) + TypeScript. The POC will run on an AWS serverless backend. At scale, it will run on AWS EKS (Kubernetes).
+
+**Plans**: [Requirements](.claude/plans/joels-ai-folly/requirements.md) · [Serverless Plan](.claude/plans/joels-ai-folly/plan.md) · [Kubernetes Plan](.claude/plans/joels-ai-folly/plan-kubernetes.md) · [API Reference](.claude/knowledge/API.md)
 
 ## About the Name
 
