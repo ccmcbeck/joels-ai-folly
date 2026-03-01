@@ -6,6 +6,8 @@ Built with React Native (Expo) + TypeScript. The POC will run on an AWS serverle
 
 **Plans**: [Requirements](.claude/plans/joels-ai-folly/requirements.md) · [Serverless Plan](.claude/plans/joels-ai-folly/plan.md) · [Kubernetes Plan](.claude/plans/joels-ai-folly/plan-kubernetes.md) · [API Reference](.claude/knowledge/API.md)
 
+<img src="images/Screenshot%202026-02-28%20at%2017.40.38.png" width="300" alt="App Screenshot" style="float: right; margin: 0 0 16px 24px;" />
+
 ## About the Name
 
 The project is named after **Joel Johnstone**, whose father **[Jack Johnstone](https://www.missionbaytriathlon.com/san-diego-triathlon-history)** co-invented
